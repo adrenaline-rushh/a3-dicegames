@@ -18,7 +18,7 @@ public class WalletActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_wallet);
+    setContentView(R.layout.activity_wallet_potrait);
 
     vm = new ViewModelProvider(this).get(WalletViewModel.class);
 
@@ -31,7 +31,13 @@ public class WalletActivity extends AppCompatActivity {
       if (vm.dieValue() == 6) Toast.makeText(this, R.string.congrats, Toast.LENGTH_SHORT).show();
     });
 
+    initWalletViewModel();
     updateUI();
+  }
+
+  void initWalletViewModel() {
+    Die6 d = new Die6();
+    vm.setDie(d);
   }
 
   void updateUI() {

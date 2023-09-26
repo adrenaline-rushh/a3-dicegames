@@ -3,11 +3,16 @@ package androidsamples.java.dicegames;
 import androidx.lifecycle.ViewModel;
 
 public class WalletViewModel extends ViewModel {
+  Die die;
+  int balance, currDieValue, winDieValue, incrementAmount;
   /**
    * The no argument constructor.
    */
   public WalletViewModel() {
-    // TODO implement method
+    currDieValue = 0;
+    setBalance(0);
+    setIncrement(5);
+    setWinValue(6);
   }
 
   /**
@@ -16,8 +21,7 @@ public class WalletViewModel extends ViewModel {
    * @return the balance
    */
   public int balance() {
-    // TODO implement method
-    return 0;
+    return balance;
   }
 
   /**
@@ -26,14 +30,24 @@ public class WalletViewModel extends ViewModel {
    * @param amount the new balance
    */
   public void setBalance(int amount) {
-    // TODO implement method
+    balance = amount;
   }
 
   /**
    * Rolls the {@link Die} in the wallet.
    */
   public void rollDie() {
-    // TODO implement method
+    try {
+      die.roll();
+    }
+    catch (NullPointerException e) {
+      throw new IllegalStateException("Die was not initialised");
+    }
+    currDieValue = die.value();
+
+    if(currDieValue == winDieValue) {
+      balance += incrementAmount;
+    }
   }
 
   /**
@@ -42,8 +56,7 @@ public class WalletViewModel extends ViewModel {
    * @return current value of the die
    */
   public int dieValue() {
-    // TODO implement method
-    return 0;
+    return currDieValue;
   }
 
   /**
@@ -52,7 +65,7 @@ public class WalletViewModel extends ViewModel {
    * @param increment amount to add to the balance
    */
   public void setIncrement(int increment) {
-    // TODO implement method
+    incrementAmount = increment;
   }
 
   /**
@@ -61,7 +74,7 @@ public class WalletViewModel extends ViewModel {
    * @param winValue value to be set
    */
   public void setWinValue(int winValue) {
-    // TODO implement method
+    winDieValue = winValue;
   }
 
   /**
@@ -70,6 +83,6 @@ public class WalletViewModel extends ViewModel {
    * @param d the Die to use
    */
   public void setDie(Die d) {
-    // TODO implement method
+    die = d;
   }
 }
