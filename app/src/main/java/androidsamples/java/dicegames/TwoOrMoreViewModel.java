@@ -1,5 +1,6 @@
 package androidsamples.java.dicegames;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.lifecycle.ViewModel;
@@ -9,11 +10,17 @@ import androidx.lifecycle.ViewModel;
  */
 public class TwoOrMoreViewModel extends ViewModel {
 
+  int balance, wager;
+  GameType gameType;
+  List<Integer> diceValues;
+  Die die;
+  GameResult gameResult;
+
   /**
    * No argument constructor.
    */
   public TwoOrMoreViewModel() {
-    // TODO implement method
+    diceValues = new ArrayList<Integer>(4);
   }
 
   /**
@@ -22,8 +29,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return the balance
    */
   public int balance() {
-    // TODO implement method
-    return 0;
+    return balance;
   }
 
   /**
@@ -32,7 +38,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @param balance the given amount
    */
   public void setBalance(int balance) {
-    // TODO implement method
+    this.balance = balance;
   }
 
   /**
@@ -41,8 +47,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return the current game type
    */
   public GameType gameType() {
-    // TODO implement method
-    return null;
+    return gameType;
   }
 
   /**
@@ -51,7 +56,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @param gameType the game type to be set
    */
   public void setGameType(GameType gameType) {
-    // TODO implement method
+    this.gameType = gameType;
   }
 
   /**
@@ -60,8 +65,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return the wager amount
    */
   public int wager() {
-    // TODO implement method
-    return 0;
+    return wager;
   }
 
   /**
@@ -70,7 +74,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @param wager the amount to be set
    */
   public void setWager(int wager) {
-    // TODO implement method
+    this.wager = wager;
   }
 
   /**
@@ -81,7 +85,28 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return {@code true} iff the wager set is valid
    */
   public boolean isValidWager() {
-    return false;
+    if(wager <= 0) {
+      return false;
+    }
+
+    switch(gameType) {
+      case TWO_ALIKE:
+        if(balance < 2 * wager)
+          return false;
+        break;
+      case THREE_ALIKE:
+        if(balance < 3 * wager)
+          return false;
+        break;
+      case FOUR_ALIKE:
+        if(balance < 4 * wager)
+          return false;
+        break;
+      default:
+        return false;
+    }
+
+    return true;
   }
 
   /**
@@ -90,8 +115,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return the values of dice
    */
   public List<Integer> diceValues() {
-    // TODO implement method
-    return null;
+    return diceValues;
   }
 
   /**
@@ -100,7 +124,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @param d the Die to be added
    */
   public void addDie(Die d) {
-    // TODO implement method
+    die = d;
   }
 
   /**
@@ -110,7 +134,21 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @throws IllegalStateException if the wager or the game type was not set to a proper value.
    */
   public GameResult play() throws IllegalStateException {
-    // TODO implement method
-    return null;
+    if(isValidWager()) {
+      die.roll();
+      diceValues.set(0, die.value());
+      die.roll();
+      diceValues.set(1, die.value());
+      die.roll();
+      diceValues.set(2, die.value());
+      die.roll();
+      diceValues.set(3, die.value());
+    }
+    else {
+      if(gameType == GameType.NONE)
+        throw new IllegalStateException("Game type is not set.");
+      else
+        throw new IllegalStateException("Wager set is invalid.");
+    }
   }
 }

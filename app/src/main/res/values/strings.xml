@@ -12,4 +12,5 @@
   <string name="blank_string">"  "</string>
   <string name="back_string">Back</string>
   <string name="info_string">Info</string>
+  <string name="balance_key">balance</string>
 </resources>
