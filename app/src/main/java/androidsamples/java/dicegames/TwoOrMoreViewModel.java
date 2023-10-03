@@ -134,7 +134,7 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @throws IllegalStateException if the wager or the game type was not set to a proper value.
    */
   public GameResult play() throws IllegalStateException {
-    if(isValidWager()) {
+    if (isValidWager()) {
       die.roll();
       diceValues.set(0, die.value());
       die.roll();
@@ -143,9 +143,38 @@ public class TwoOrMoreViewModel extends ViewModel {
       diceValues.set(2, die.value());
       die.roll();
       diceValues.set(3, die.value());
-    }
-    else {
-      if(gameType == GameType.NONE)
+
+      int numSameComparisons = 0;
+
+      for(int i = 0; i < 4; i++){
+        for(int j = i + 1; j < 4; j++) {
+          if(diceValues.get(i) == diceValues.get(j)) {
+            numSameComparisons++;
+          }
+        }
+      }
+
+      if(numSameComparisons >= 6) {
+        return GameResult.WIN;
+      }
+      else if(numSameComparisons >= 3) {
+        if(gameType != GameType.FOUR_ALIKE) {
+          return GameResult.WIN;
+        }
+        return GameResult.LOSS;
+      }
+      else if(numSameComparisons >= 2) {
+        if(gameType == GameType.TWO_ALIKE) {
+          return GameResult.WIN;
+        }
+        return GameResult.LOSS;
+      }
+      else {
+        return GameResult.LOSS;
+      }
+
+    } else {
+      if (gameType == GameType.NONE)
         throw new IllegalStateException("Game type is not set.");
       else
         throw new IllegalStateException("Wager set is invalid.");
