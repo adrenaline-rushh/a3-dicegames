@@ -81,9 +81,11 @@
         app:layout_constraintTop_toBottomOf="@id/rg_num_alikes">
 
         <EditText
+            android:inputType="number"
             android:id="@+id/txt_wager"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:hint="Wager"
             android:textAlignment="center"
             android:ems="10"
@@ -94,7 +96,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Go"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="15dp"
+            android:padding="12dp"
+            android:onClick="goButtonClick"/>
 
     </LinearLayout>
 
@@ -114,6 +118,7 @@
 
         <Button
             android:id="@+id/btn_die_1"
+            android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="70sp"
@@ -127,6 +132,7 @@
 
         <Button
             android:id="@+id/btn_die_2"
+            android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="70sp"
@@ -144,6 +150,7 @@
 
         <Button
             android:id="@+id/btn_die_3"
+            android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="70sp"
@@ -157,6 +164,7 @@
 
         <Button
             android:id="@+id/btn_die_4"
+            android:clickable="false"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="70sp"
@@ -186,7 +194,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/back_string"
-            android:layout_marginEnd="60dp"/>
+            android:layout_marginEnd="60dp"
+            android:onClick="backClicked"/>
 
         <Button
             android:id="@+id/btn_info"

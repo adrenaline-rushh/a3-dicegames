@@ -1,6 +1,7 @@
 package androidsamples.java.dicegames;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.lifecycle.ViewModel;
@@ -10,17 +11,20 @@ import androidx.lifecycle.ViewModel;
  */
 public class TwoOrMoreViewModel extends ViewModel {
 
-  int balance, wager;
-  GameType gameType;
-  List<Integer> diceValues;
-  Die die;
-  GameResult gameResult;
+  private int balance, wager;
+  private GameType gameType;
+  private List<Integer> diceValues;
+  private List<Die> dice;
+  private GameResult gameResult;
 
   /**
    * No argument constructor.
    */
   public TwoOrMoreViewModel() {
-    diceValues = new ArrayList<Integer>(4);
+    diceValues = new ArrayList<Integer>(Arrays.asList(0, 0, 0, 0));
+    dice = new ArrayList<Die>();
+    gameType = GameType.NONE;
+    gameResult = GameResult.UNDECIDED;
   }
 
   /**
@@ -115,6 +119,9 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @return the values of dice
    */
   public List<Integer> diceValues() {
+    for(int i = 0; i < 4; i++) {
+      diceValues.set(i, dice.get(i).value());
+    }
     return diceValues;
   }
 
@@ -124,7 +131,9 @@ public class TwoOrMoreViewModel extends ViewModel {
    * @param d the Die to be added
    */
   public void addDie(Die d) {
-    die = d;
+    if(dice.size() < 4) {
+      dice.add(d);
+    }
   }
 
   /**
@@ -135,14 +144,13 @@ public class TwoOrMoreViewModel extends ViewModel {
    */
   public GameResult play() throws IllegalStateException {
     if (isValidWager()) {
-      die.roll();
-      diceValues.set(0, die.value());
-      die.roll();
-      diceValues.set(1, die.value());
-      die.roll();
-      diceValues.set(2, die.value());
-      die.roll();
-      diceValues.set(3, die.value());
+      if(dice.size() != 4)
+        throw new IllegalStateException("Not enough dice, can't play!");
+
+      for(int i = 0; i < 4; i++) {
+        dice.get(i).roll();
+        diceValues.set(i, dice.get(i).value());
+      }
 
       int numSameComparisons = 0;
 
@@ -163,7 +171,7 @@ public class TwoOrMoreViewModel extends ViewModel {
         }
         return GameResult.LOSS;
       }
-      else if(numSameComparisons >= 2) {
+      else if(numSameComparisons >= 1) {
         if(gameType == GameType.TWO_ALIKE) {
           return GameResult.WIN;
         }
@@ -175,9 +183,9 @@ public class TwoOrMoreViewModel extends ViewModel {
 
     } else {
       if (gameType == GameType.NONE)
-        throw new IllegalStateException("Game type is not set.");
+        throw new IllegalStateException("Game Type not set, can't play!");
       else
-        throw new IllegalStateException("Wager set is invalid.");
+        throw new IllegalStateException("Wager not set, can't play!");
     }
   }
 }

@@ -31,9 +31,16 @@ public class WalletActivity extends AppCompatActivity {
     updateUI();
   }
 
+  @Override
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    vm.setBalance(data.getExtras().getInt("balance"));
+    updateUI();
+  }
+
   void initWalletViewModel() {
-    Die6 d = new Die6();
-    vm.setDie(d);
+    vm.setDie(new Die6());
   }
 
   void updateUI() {
@@ -51,6 +58,6 @@ public class WalletActivity extends AppCompatActivity {
     Intent twoOrMoreIntent = new Intent(this, TwoOrMoreActivity.class);
     twoOrMoreIntent.putExtra(getString(R.string.balance_key), vm.balance());
 
-    startActivity(twoOrMoreIntent);
+    startActivityForResult(twoOrMoreIntent, 1);
   }
 }
