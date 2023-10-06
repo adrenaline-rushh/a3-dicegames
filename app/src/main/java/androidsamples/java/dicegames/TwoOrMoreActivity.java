@@ -64,6 +64,12 @@ public class TwoOrMoreActivity extends AppCompatActivity {
     goBack();
   }
 
+  public void infoClicked(View view) {
+    Intent infoIntent = new Intent(this, InfoActivity.class);
+
+    startActivity(infoIntent);
+  }
+
   private void updateUI() {
     txtBalance.setText(String.format("%s %d", getString(R.string.coins), twoOrMoreViewModel.balance()));
     gameOptionsRB.clearCheck();

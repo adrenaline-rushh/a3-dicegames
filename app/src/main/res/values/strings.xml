@@ -1,17 +1,22 @@
 <resources>
-  <string name="app_name">Dice Games</string>
-  <string name="zero">0</string>
-  <string name="coins">Coins</string>
-  <string name="two_or_more">Two Or More</string>
-  <string name="congrats">Congratulations!</string>
-  <string name="walletRules">Click to roll the die.\nEvery time you hit a six, you earn five coins.</string>
-  <string name="alike_2">2 alike</string>
-  <string name="alike_3">3 alike</string>
-  <string name="alike_4">4 alike</string>
-  <string name="Go">GO</string>
-  <string name="blank_string">"  "</string>
-  <string name="back_string">Back</string>
-  <string name="info_string">Info</string>
-  <string name="balance_key">balance</string>
-  <string name="illegal_wager">Please enter wager in numerical format</string>
+    <string name="app_name">Dice Games</string>
+    <string name="zero">0</string>
+    <string name="coins">Coins</string>
+    <string name="two_or_more">Two Or More</string>
+    <string name="congrats">Congratulations!</string>
+    <string name="walletRules">Click to roll the die.\nEvery time you hit a six, you earn five coins.</string>
+    <string name="alike_2">2 alike</string>
+    <string name="alike_3">3 alike</string>
+    <string name="alike_4">4 alike</string>
+    <string name="Go">GO</string>
+    <string name="blank_string">"  "</string>
+    <string name="back_string">Back</string>
+    <string name="info_string">Info</string>
+    <string name="balance_key">balance</string>
+    <string name="illegal_wager">Please enter wager in numerical format</string>
+    <string name="rules">Rules:</string>
+    <string name="rules_desc">Step 1:\nSelect a game type (2 alike, 3 alike, etc.)\n\nStep 2:\nEnter the wager amount using the following rules\n
+        \ta. For 2 alike, balance must be at least 2 times wager\n
+        \tb. For 3 alike, balance must be at least 3 times wager\n
+        \tc. For 4 alike, balance must be at least 4 times wager\n\nStep 3:\nPress Go, if you roll 2 alike or 3 alike at least as per your chosen game type, you win!</string>
 </resources>

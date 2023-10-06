@@ -202,7 +202,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/info_string"
-            android:layout_marginStart="60dp"/>
+            android:layout_marginStart="60dp"
+            android:onClick="infoClicked"/>
 
     </LinearLayout>
 
