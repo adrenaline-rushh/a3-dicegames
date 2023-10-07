@@ -140,6 +140,7 @@
 
                     <Button
                         android:id="@+id/btn_die_1"
+                        android:contentDescription="Die 1"
                         android:clickable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -154,6 +155,7 @@
 
                     <Button
                         android:id="@+id/btn_die_2"
+                        android:contentDescription="Die 2"
                         android:clickable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -172,6 +174,7 @@
 
                     <Button
                         android:id="@+id/btn_die_3"
+                        android:contentDescription="Die 3"
                         android:clickable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -186,6 +189,7 @@
 
                     <Button
                         android:id="@+id/btn_die_4"
+                        android:contentDescription="Die 4"
                         android:clickable="false"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
