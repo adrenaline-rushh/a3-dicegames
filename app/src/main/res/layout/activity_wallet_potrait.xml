@@ -66,7 +66,7 @@
       tools:ignore="DuplicateSpeakableTextCheck" />
 
   <Button
-      android:id="@+id/button"
+      android:id="@+id/btn_two_or_more"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginTop="90dp"

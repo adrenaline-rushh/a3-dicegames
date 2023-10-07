@@ -3,10 +3,12 @@ package androidsamples.java.dicegames;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -28,9 +30,12 @@ public class TwoOrMoreActivity extends AppCompatActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_two_or_more_potrait);
 
-    int balance = getIntent().getExtras().getInt(getString(R.string.balance_key));
     twoOrMoreViewModel = new ViewModelProvider(this).get(TwoOrMoreViewModel.class);
-    twoOrMoreViewModel.setBalance(balance);
+
+    if(savedInstanceState == null) {
+      int balance = getIntent().getExtras().getInt(getString(R.string.balance_key));
+      twoOrMoreViewModel.setBalance(balance);
+    }
 
     txtBalance = findViewById(R.id.txt_balance);
     wagerField = findViewById(R.id.txt_wager);
@@ -123,5 +128,8 @@ public class TwoOrMoreActivity extends AppCompatActivity {
     catch(NumberFormatException e) {
       Toast.makeText(this, R.string.illegal_wager, Toast.LENGTH_SHORT).show();
     }
+
+    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    imm.hideSoftInputFromWindow(wagerField.getWindowToken(), 0);
   }
 }

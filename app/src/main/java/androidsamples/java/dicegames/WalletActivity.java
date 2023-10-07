@@ -2,6 +2,7 @@ package androidsamples.java.dicegames;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -36,6 +37,7 @@ public class WalletActivity extends AppCompatActivity {
     super.onActivityResult(requestCode, resultCode, data);
 
     vm.setBalance(data.getExtras().getInt("balance"));
+    Log.d("testingg", String.format("%d", vm.balance()));
     updateUI();
   }
 
