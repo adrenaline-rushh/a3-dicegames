@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.content.res.Configuration;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,7 +22,12 @@ public class WalletActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_wallet_potrait);
+    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      setContentView(R.layout.activity_wallet_potrait);
+    }
+    else {
+      setContentView(R.layout.activity_wallet_landscape);
+    }
 
     vm = new ViewModelProvider(this).get(WalletViewModel.class);
 

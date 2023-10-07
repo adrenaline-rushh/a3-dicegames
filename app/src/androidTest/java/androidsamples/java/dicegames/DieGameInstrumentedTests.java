@@ -16,7 +16,6 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 import static androidx.test.runner.lifecycle.Stage.RESUMED;
 
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
@@ -55,12 +54,6 @@ public class DieGameInstrumentedTests {
 
   @Rule
   public ActivityScenarioRule<WalletActivity> walletActivityRule = new ActivityScenarioRule<>(WalletActivity.class);
-  @Test
-  public void useAppContext() {
-    // Context of the app under test.
-    Context appContext = getInstrumentation().getTargetContext();
-    assertEquals("androidsamples.java.dicegames", appContext.getPackageName());
-  }
 
   @Test
   public void checkSameBalanceWalletToTwoOrMore() {
@@ -104,7 +97,7 @@ public class DieGameInstrumentedTests {
   }
 
   @Test
-  public void checkSameBalanceTwoOrMoreToWallet() throws InterruptedException {
+  public void checkSameBalanceTwoOrMoreToWallet() {
     onView(withId(R.id.btn_die)).perform(click());
     onView(withId(R.id.btn_die)).perform(click());
     onView(withId(R.id.btn_die)).perform(click());
@@ -163,5 +156,23 @@ public class DieGameInstrumentedTests {
     twoOrMoreActivity = (TwoOrMoreActivity) getCurrentActivity();
 
     assertThat(twoOrMoreActivity.twoOrMoreViewModel.balance(), is(balance));
+  }
+
+
+  @Test
+  public void checkInfoPortraitLandscapeAndBalanceSame() {
+    onView(withId(R.id.btn_two_or_more)).perform(click());
+
+    TwoOrMoreActivity activity = (TwoOrMoreActivity) getCurrentActivity();
+    int balance = activity.twoOrMoreViewModel.balance();
+
+    onView(withId(R.id.btn_info)).perform(click());
+
+    InfoActivity infoActivity = (InfoActivity) getCurrentActivity();
+    infoActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+    onView(withId(R.id.btn_back)).perform(click());
+
+    activity = (TwoOrMoreActivity) getCurrentActivity();
+    assertThat(activity.twoOrMoreViewModel.balance(), is(balance));
   }
 }

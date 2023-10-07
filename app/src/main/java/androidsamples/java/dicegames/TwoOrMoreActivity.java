@@ -2,6 +2,7 @@ package androidsamples.java.dicegames;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import android.content.res.Configuration;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +29,12 @@ public class TwoOrMoreActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_two_or_more_potrait);
+    if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+      setContentView(R.layout.activity_two_or_more_potrait);
+    }
+    else {
+      setContentView(R.layout.activity_two_or_more_landscape);
+    }
 
     twoOrMoreViewModel = new ViewModelProvider(this).get(TwoOrMoreViewModel.class);
 
