@@ -6,6 +6,8 @@ import static org.junit.Assert.assertThrows;
 
 import org.junit.Test;
 
+import java.util.List;
+
 public class TwoOrMoreViewModelTest {
   private final TwoOrMoreViewModel m = new TwoOrMoreViewModel();
 
@@ -87,5 +89,36 @@ public class TwoOrMoreViewModelTest {
 
     IllegalStateException thrown = assertThrows(IllegalStateException.class, m::play);
     assertThat(thrown.getMessage(), is("Not enough dice, can't play!"));
+  }
+
+  @Test
+  public void invalidWagerThrowsException() {
+    m.setGameType(GameType.FOUR_ALIKE);
+    m.setWager(50);
+    m.setBalance(100);
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+
+    IllegalStateException thrown = assertThrows(IllegalStateException.class, m::play);
+    assertThat(thrown.getMessage(), is("Wager not set, can't play!"));
+  }
+
+  @Test
+  public void checksIfDiceValuesReturnsSameValues() {
+    m.setGameType(GameType.FOUR_ALIKE);
+    m.setWager(5);
+    m.setBalance(100);
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+    m.addDie(new Die6());
+
+    m.play();
+
+    List<Integer> l1 = m.diceValues();
+
+    assertThat(l1, is(m.diceValues()));
   }
 }

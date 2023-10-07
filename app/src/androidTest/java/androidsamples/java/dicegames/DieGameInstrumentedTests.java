@@ -160,19 +160,26 @@ public class DieGameInstrumentedTests {
 
 
   @Test
-  public void checkInfoPortraitLandscapeAndBalanceSame() {
+  public void checkInfoBalanceSame() {
     onView(withId(R.id.btn_two_or_more)).perform(click());
 
     TwoOrMoreActivity activity = (TwoOrMoreActivity) getCurrentActivity();
     int balance = activity.twoOrMoreViewModel.balance();
 
     onView(withId(R.id.btn_info)).perform(click());
-
-    InfoActivity infoActivity = (InfoActivity) getCurrentActivity();
-    infoActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     onView(withId(R.id.btn_back)).perform(click());
 
     activity = (TwoOrMoreActivity) getCurrentActivity();
     assertThat(activity.twoOrMoreViewModel.balance(), is(balance));
+  }
+
+  @Test
+  public void checkPortraitLandscapeInfo() {
+    onView(withId(R.id.btn_two_or_more)).perform(click());
+
+    onView(withId(R.id.btn_info)).perform(click());
+
+    InfoActivity infoActivity = (InfoActivity) getCurrentActivity();
+    infoActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
   }
 }
