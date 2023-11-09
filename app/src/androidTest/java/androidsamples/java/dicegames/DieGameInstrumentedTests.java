@@ -15,10 +15,12 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static androidx.test.runner.lifecycle.Stage.RESUMED;
 
+import androidx.test.espresso.accessibility.AccessibilityChecks;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,6 +39,10 @@ import java.util.Collection;
 public class DieGameInstrumentedTests {
   private String currBalance;
   private int balance;
+  @BeforeClass
+  public static void enableAccessibilityChecks() {
+    AccessibilityChecks.enable();
+  }
 
   public static Activity getCurrentActivity() {
     final Activity[] currentActivity = {null};
